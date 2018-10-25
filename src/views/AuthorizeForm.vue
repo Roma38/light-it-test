@@ -42,7 +42,6 @@ export default {
           password
         })
         .then(({ data }) => {
-          console.log(data);
           if (data.success) {
             localStorage.setItem("token", data.token);
             this.$router.push("/");
@@ -63,8 +62,4 @@ export default {
   display: inline-block;
   margin: 0 auto;
 }
-
-/* .alert-window {
-  margin-top: 20px;
-} */
 </style>

@@ -71,15 +71,7 @@ export default {
     }
   },
   mounted() {
-    /* axios
-      .get(
-        `http://smktesting.herokuapp.com/api/reviews/${this.$route.params.id}`
-      )
-      .then(({ data }) => {
-        console.log(data);
-        this.reviews = data;
-      }); */
-      this.getReviews();
+    this.getReviews();
   },
   methods: {
     addReview() {
@@ -90,8 +82,7 @@ export default {
         }`,
         data: { rate: this.usersRating, text: this.usersComment },
         headers: { Authorization: `Token ${this.token}` }
-      }).then(({ data }) => {
-        console.log(data);
+      }).then(response => {
         this.getReviews();
         this.usersComment = "";
         this.usersRating = 0;
@@ -103,7 +94,6 @@ export default {
           `http://smktesting.herokuapp.com/api/reviews/${this.$route.params.id}`
         )
         .then(({ data }) => {
-          console.log(data);
           this.reviews = data;
         });
     },
