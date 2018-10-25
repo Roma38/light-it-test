@@ -10,7 +10,6 @@
       </b-form-group>
 
       <b-button type="submit" variant="primary">Submit</b-button>
-      <pre>{{this.$route.name}}</pre>
 
       <b-alert class="alert-window" variant= "danger" dismissible :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">
         {{ message }}

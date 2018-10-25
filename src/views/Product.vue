@@ -1,9 +1,14 @@
 <template>
   <b-container>
     <authorize-buttons :loggedIn="loggedIn" @logOut="logOut"></authorize-buttons>
-
     <img :src="'http://smktesting.herokuapp.com/static/' + product.img" :alt="product.title">
     <h2>{{ product.title }}</h2>
+    <star-rating v-model="productRating"
+      class="justify-content-center mb-2"
+      :star-size="25"      
+      read-only
+      :fixed-points="1"
+      :increment="0.01"></star-rating>
     <p>{{ product.text }}</p>
     <hr>
 
@@ -36,9 +41,6 @@
 
       <b-button type="submit" variant="primary">Save</b-button>
     </b-form>
-    
-    <pre>{{ usersRating }}</pre>
-    <pre></pre>
   </b-container>
 </template>
 
@@ -68,7 +70,12 @@ export default {
       return this.reviews.length > 3
         ? this.reviews.slice(this.currentPage * 3 - 3, this.currentPage * 3)
         : this.reviews;
-    }
+    },
+    productRating() {
+      const rates = this.reviews.map(({ rate }) => rate);
+      const productRating = rates.length ? rates.reduce((a, b) => a + b) / rates.length : null;
+      return productRating;
+    },
   },
   mounted() {
     this.getReviews();
@@ -95,6 +102,11 @@ export default {
         )
         .then(({ data }) => {
           this.reviews = data;
+          /* const rates = this.reviews.map(({ rate }) => rate);
+          const productRating = rates.reduce((a, b) => a + b) / rates.length;
+          console.log(rates);
+          console.log(this.reviews);
+          console.log(productRating); */
         });
     },
     logOut() {
