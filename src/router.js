@@ -26,7 +26,7 @@ export default new Router({
       component: AuthorizeForm
     },
     {
-      path: "/product/:id/:product",
+      path: "/product/:id",
       name: "product",
       component: Product
     }

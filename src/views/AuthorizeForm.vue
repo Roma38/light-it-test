@@ -11,7 +11,7 @@
 
       <b-button type="submit" variant="primary">Submit</b-button>
 
-      <b-alert class="alert-window" variant= "danger" dismissible :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">
+      <b-alert class="mt-4" variant= "danger" dismissible :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">
         {{ message }}
       </b-alert>
     </b-form>
@@ -43,12 +43,18 @@ export default {
         .then(({ data }) => {
           if (data.success) {
             localStorage.setItem("token", data.token);
+            this.$store.commit("updateToken");
             this.$router.push("/");
           } else {
             this.success = data.success;
             this.showDismissibleAlert = true;
             this.message = data.message;
           }
+        })
+        .catch(error => {
+          this.showDismissibleAlert = true;
+          this.message = "Oops... something went wrong :(";
+          console.error(error);
         });
     }
   }
